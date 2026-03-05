@@ -68,13 +68,15 @@
     draw();
   }
 
-  // ── Hover → flip direction ────────────────────────────────────────────────
+  // ── Hover → flip direction (once per entry) ──────────────────────────────
+  let wasOver = false;
   document.addEventListener('mousemove', (e) => {
     if (!enabled) return;
-    const rect = canvas.getBoundingClientRect();
+    const rect  = canvas.getBoundingClientRect();
     const over  = e.clientX >= rect.left && e.clientX <= rect.right &&
                   e.clientY >= rect.top  && e.clientY <= rect.bottom;
-    if (over) direction = direction === 'right' ? 'left' : 'right';
+    if (over && !wasOver) direction = direction === 'right' ? 'left' : 'right';
+    wasOver = over;
   }, { passive: true });
 
   // ── Init ─────────────────────────────────────────────────────────────────

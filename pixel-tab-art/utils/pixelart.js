@@ -118,8 +118,8 @@ const PixelArt = (() => {
   };
 
   // ── Critter identity derived from seed ───────────────────────────────────
-  function getCritterType(seed) {
-    return (seed % 2 === 0) ? 'cat' : 'dog';
+  function getCritterType(_seed) {
+    return 'dog';
   }
 
   function getColors(seed) {
