@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Tab Art</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 220px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      background: #1a1a2e;
+      color: #e0e0f0;
+      padding: 16px;
+      user-select: none;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      color: #c8c8ff;
+    }
+
+    #hostname {
+      font-size: 11px;
+      color: #7878a8;
+      margin-bottom: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #preview-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    #preview {
+      border-radius: 8px;
+      image-rendering: pixelated;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      flex: 1;
+      padding: 7px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    button:active { transform: scale(0.96); }
+
+    #btn-regen {
+      background: #4f46e5;
+      color: #fff;
+    }
+
+    #btn-regen:hover { opacity: 0.88; }
+
+    #btn-toggle {
+      background: #2d2d4e;
+      color: #a0a0c8;
+      border: 1px solid #3a3a60;
+    }
+
+    #btn-toggle.on {
+      background: #16213e;
+      color: #6c6caa;
+    }
+
+    #btn-toggle:hover { opacity: 0.82; }
+
+    #seed-display {
+      margin-top: 12px;
+      font-size: 10px;
+      color: #4a4a6a;
+      text-align: center;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pixel Tab Art</h1>
+  <div id="hostname">loading…</div>
+
+  <div id="preview-wrap">
+    <canvas id="preview"></canvas>
+  </div>
+
+  <div class="btn-row">
+    <button id="btn-regen">Regenerate</button>
+    <button id="btn-toggle">Disable</button>
+  </div>
+
+  <div id="seed-display"></div>
+
+  <script src="utils/pixelart.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
