@@ -54,7 +54,7 @@
     if (!enabled) return;
 
     posX += direction === 'right' ? SPEED_WALK : -SPEED_WALK;
-    pxSinceFrame += speed;
+    pxSinceFrame += SPEED_WALK;
 
     if (pxSinceFrame >= FRAME_STRIDE) {
       pxSinceFrame = 0;
