@@ -1,11 +1,11 @@
 /**
  * utils/pixelart.js
- * Seeded PRNG + deterministic pixel art generation.
- * Exposed as a global `PixelArt` object (no ES modules — compatible with
- * both content scripts and popup scripts).
+ * Seeded PRNG + hand-crafted critter sprite rendering.
+ * Shared between content.js and popup.js via global `PixelArt`.
  */
 const PixelArt = (() => {
-  // mulberry32 — fast, good quality 32-bit seeded PRNG
+
+  // ── PRNG ────────────────────────────────────────────────────────────────
   function mulberry32(seed) {
     return function () {
       seed |= 0;
@@ -16,7 +16,6 @@ const PixelArt = (() => {
     };
   }
 
-  // FNV-1a 32-bit hash — converts a string into a stable integer seed
   function hashString(str) {
     let h = 2166136261 >>> 0;
     for (let i = 0; i < str.length; i++) {
@@ -26,62 +25,142 @@ const PixelArt = (() => {
     return h;
   }
 
-  /**
-   * Draw pixel art onto `canvas` using `seed`.
-   * @param {HTMLCanvasElement} canvas
-   * @param {number} seed  — 32-bit integer
-   * @param {number} [blockSize=8]  — canvas pixels per logical pixel
-   */
-  function generate(canvas, seed, blockSize = 8) {
-    const GRID = 8;
-    const SIZE = GRID * blockSize;
+  // ── Sprite data ──────────────────────────────────────────────────────────
+  // 8 rows × 8 cols, critter facing RIGHT.
+  // . = transparent
+  // b = body (main fur)
+  // l = light (belly / inner ear)
+  // d = dark marking / stripe
+  // e = eye
+  // n = nose
+  const SPRITES = {
+    cat: [
+      // walk A
+      [
+        '........',
+        '.....b.b',  // pointy ears
+        '....bbbb',  // head
+        'b...bebb',  // tail up (x=0) + eye
+        'bb.bbbbb',  // tail base + body
+        'bbbllbbb',  // body + light belly
+        '.b...bb.',  // front leg (x=1) + back legs (x=5,6)
+        '........',
+      ],
+      // walk B — legs shifted
+      [
+        '........',
+        '.....b.b',
+        '....bbbb',
+        'b...bebb',
+        'bb.bbbbb',
+        'bbbllbbb',
+        '..b.b...',
+        '........',
+      ],
+      // scurry — low crouch, all four legs wide, tail flat
+      [
+        '........',
+        '.....b.b',
+        '....bbbb',
+        '....bebn',  // open mouth
+        'bbbbbbb.',  // body flattened
+        'bbbllbbb',
+        'b.b.b.b.',  // all four legs visible
+        '........',
+      ],
+    ],
 
-    canvas.width = SIZE;
-    canvas.height = SIZE;
+    dog: [
+      // walk A
+      [
+        '.....bb.',  // floppy ear
+        '....bbbb',  // head
+        '.....ebb',  // eye + muzzle
+        '.bbbbbbb',  // neck + body
+        'bbbbbbbb',  // body
+        'bbbllbbb',  // belly
+        '.b...bb.',  // legs A
+        '........',
+      ],
+      // walk B
+      [
+        '.....bb.',
+        '....bbbb',
+        '.....ebb',
+        '.bbbbbbb',
+        'bbbbbbbb',
+        'bbbllbbb',
+        '..b.b...',
+        '........',
+      ],
+      // scurry — tail wagging (high), tongue out
+      [
+        '.....bb.',
+        '....bbbb',
+        '.....ebn',  // tongue / open mouth
+        '.bbbbbbb',
+        'bbbbbbbb',
+        'bbbllbbb',
+        'b.b.b.b.',  // all four legs
+        '........',
+      ],
+    ],
+  };
 
-    const ctx = canvas.getContext('2d');
+  // Horizontal flip for left-facing direction
+  function flipFrame(frame) {
+    return frame.map(row => row.split('').reverse().join(''));
+  }
+
+  const SPRITES_LEFT = {
+    cat: SPRITES.cat.map(flipFrame),
+    dog: SPRITES.dog.map(flipFrame),
+  };
+
+  // ── Critter identity derived from seed ───────────────────────────────────
+  function getCritterType(seed) {
+    return (seed % 2 === 0) ? 'cat' : 'dog';
+  }
+
+  function getColors(seed) {
     const rng = mulberry32(seed);
+    const hue = Math.floor(rng() * 360);
+    const sat = 25 + Math.floor(rng() * 35);   // lower sat = more fur-like
+    const lit = 48 + Math.floor(rng() * 22);
+    return {
+      b: `hsl(${hue}, ${sat}%, ${lit}%)`,
+      l: `hsl(${hue}, ${Math.max(8, sat - 12)}%, ${Math.min(88, lit + 22)}%)`,
+      d: `hsl(${hue}, ${sat}%, ${Math.max(18, lit - 24)}%)`,
+      e: '#1a1a1a',
+      n: `hsl(${(hue + 180) % 360}, 45%, 38%)`,
+    };
+  }
 
-    // --- Palette ---------------------------------------------------------
-    const hue1 = Math.floor(rng() * 360);
-    const hue2 = (hue1 + 50 + Math.floor(rng() * 70)) % 360;
-    const sat = 55 + Math.floor(rng() * 35);
-    const lit = 45 + Math.floor(rng() * 20);
+  // ── Drawing ───────────────────────────────────────────────────────────────
+  const BLOCK = 5;   // canvas pixels per logical pixel → 40×40 total
+  const GRID  = 8;
+  const SIZE  = GRID * BLOCK;
 
-    // Index 0 = transparent, 1 = primary, 2 = accent, 3 = shadow
-    const palette = [
-      null,
-      `hsl(${hue1}, ${sat}%, ${lit}%)`,
-      `hsl(${hue2}, ${sat}%, ${lit + 18}%)`,
-      `hsl(${hue1}, ${sat - 10}%, ${lit - 22}%)`,
-    ];
-
-    // --- Grid (left 4 columns, mirrored right) ----------------------------
-    const grid = [];
-    for (let y = 0; y < GRID; y++) {
-      const left = [];
-      for (let x = 0; x < GRID / 2; x++) {
-        const r = rng();
-        if (r < 0.30) left.push(0);       // transparent
-        else if (r < 0.72) left.push(1);  // primary
-        else if (r < 0.90) left.push(2);  // accent
-        else left.push(3);                // shadow
-      }
-      // Mirror: row = [left | reversed(left)]
-      grid.push([...left, ...left.slice().reverse()]);
-    }
-
-    // --- Render ----------------------------------------------------------
+  function drawCritter(canvas, type, frameIndex, direction, colors) {
+    canvas.width  = SIZE;
+    canvas.height = SIZE;
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, SIZE, SIZE);
+
+    const bank   = direction === 'left' ? SPRITES_LEFT[type] : SPRITES[type];
+    const frames = bank || SPRITES[type];
+    const frame  = frames[frameIndex % frames.length];
+
     for (let y = 0; y < GRID; y++) {
+      const row = frame[y] || '';
       for (let x = 0; x < GRID; x++) {
-        const ci = grid[y][x];
-        if (ci === 0) continue;
-        ctx.fillStyle = palette[ci];
-        ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+        const ch = row[x];
+        if (!ch || ch === '.') continue;
+        ctx.fillStyle = colors[ch] || colors.b;
+        ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
       }
     }
   }
 
-  return { mulberry32, hashString, generate };
+  return { mulberry32, hashString, drawCritter, getCritterType, getColors };
 })();

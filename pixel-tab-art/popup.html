@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pixel Tab Art</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      width: 220px;
+      width: 200px;
       font-family: system-ui, -apple-system, sans-serif;
       font-size: 13px;
-      background: #1a1a2e;
-      color: #e0e0f0;
+      background: #141420;
+      color: #ddddf0;
       padding: 16px;
       user-select: none;
     }
@@ -21,13 +20,13 @@
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.04em;
-      margin-bottom: 4px;
-      color: #c8c8ff;
+      color: #b8b8ff;
+      margin-bottom: 3px;
     }
 
     #hostname {
       font-size: 11px;
-      color: #7878a8;
+      color: #666688;
       margin-bottom: 14px;
       white-space: nowrap;
       overflow: hidden;
@@ -41,55 +40,40 @@
     }
 
     #preview {
-      border-radius: 8px;
       image-rendering: pixelated;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      border-radius: 4px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.55);
     }
 
-    .btn-row {
-      display: flex;
-      gap: 8px;
+    #critter-label {
+      text-align: center;
+      font-size: 11px;
+      color: #555577;
+      margin-bottom: 14px;
+      text-transform: capitalize;
+      letter-spacing: 0.05em;
     }
 
-    button {
-      flex: 1;
-      padding: 7px 0;
+    #btn-toggle {
+      width: 100%;
+      padding: 8px 0;
       border: none;
       border-radius: 6px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
+      background: #2a2a48;
+      color: #9090c8;
+      border: 1px solid #36365a;
       transition: opacity 0.15s, transform 0.1s;
     }
 
-    button:active { transform: scale(0.96); }
+    #btn-toggle:active { transform: scale(0.96); }
+    #btn-toggle:hover  { opacity: 0.82; }
 
-    #btn-regen {
-      background: #4f46e5;
-      color: #fff;
-    }
-
-    #btn-regen:hover { opacity: 0.88; }
-
-    #btn-toggle {
-      background: #2d2d4e;
-      color: #a0a0c8;
-      border: 1px solid #3a3a60;
-    }
-
-    #btn-toggle.on {
-      background: #16213e;
-      color: #6c6caa;
-    }
-
-    #btn-toggle:hover { opacity: 0.82; }
-
-    #seed-display {
-      margin-top: 12px;
-      font-size: 10px;
-      color: #4a4a6a;
-      text-align: center;
-      font-family: monospace;
+    #btn-toggle.enabled {
+      background: #1e1e36;
+      color: #5555aa;
     }
   </style>
 </head>
@@ -100,13 +84,9 @@
   <div id="preview-wrap">
     <canvas id="preview"></canvas>
   </div>
+  <div id="critter-label"></div>
 
-  <div class="btn-row">
-    <button id="btn-regen">Regenerate</button>
-    <button id="btn-toggle">Disable</button>
-  </div>
-
-  <div id="seed-display"></div>
+  <button id="btn-toggle">Enable</button>
 
   <script src="utils/pixelart.js"></script>
   <script src="popup.js"></script>
