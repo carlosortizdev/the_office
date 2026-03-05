@@ -9,11 +9,8 @@
 
   // ── Constants ────────────────────────────────────────────────────────────
   const W             = 40;               // critter canvas width  (8 * 5)
-  const H             = 40;               // critter canvas height (8 * 5)
   const TOP           = 4;                // px from top of viewport
   const SPEED_WALK    = 0.65;             // px per animation frame
-  const SPEED_SCURRY  = 1.6;
-  const SCURRY_MS     = 3000;
   const FRAME_STRIDE  = 10;               // px walked between walk-frame advances
   const STORAGE_KEY   = 'pta-enabled';
 
@@ -42,15 +39,12 @@
   let direction     = Math.random() < 0.5 ? 'right' : 'left';
   let walkFrame     = 0;
   let pxSinceFrame  = 0;
-  let scurryUntil   = 0;
   let enabled       = true;
   let rafId         = null;
 
   // ── Render ───────────────────────────────────────────────────────────────
   function draw() {
-    const isScurrying = Date.now() < scurryUntil;
-    const frameIdx    = isScurrying ? 2 : (walkFrame % 2);
-    PixelArt.drawCritter(canvas, type, frameIdx, direction, colors);
+    PixelArt.drawCritter(canvas, type, walkFrame % 2, direction, colors);
     canvas.style.left = posX + 'px';
   }
 
@@ -59,10 +53,7 @@
     rafId = requestAnimationFrame(step);
     if (!enabled) return;
 
-    const isScurrying = Date.now() < scurryUntil;
-    const speed       = isScurrying ? SPEED_SCURRY : SPEED_WALK;
-
-    posX         += direction === 'right' ? speed : -speed;
+    posX += direction === 'right' ? SPEED_WALK : -SPEED_WALK;
     pxSinceFrame += speed;
 
     if (pxSinceFrame >= FRAME_STRIDE) {
@@ -77,13 +68,13 @@
     draw();
   }
 
-  // ── Hover detection via mousemove (keeps pointer-events:none on canvas) ──
+  // ── Hover → flip direction ────────────────────────────────────────────────
   document.addEventListener('mousemove', (e) => {
     if (!enabled) return;
     const rect = canvas.getBoundingClientRect();
     const over  = e.clientX >= rect.left && e.clientX <= rect.right &&
                   e.clientY >= rect.top  && e.clientY <= rect.bottom;
-    if (over) scurryUntil = Date.now() + SCURRY_MS;
+    if (over) direction = direction === 'right' ? 'left' : 'right';
   }, { passive: true });
 
   // ── Init ─────────────────────────────────────────────────────────────────
