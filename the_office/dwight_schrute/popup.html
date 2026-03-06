@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threat Assessor</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="beet-icon">🥬</div>
+    <div class="header-text">
+      <div class="title">THREAT ASSESSOR</div>
+      <div class="subtitle">Dwight K. Schrute — Assistant Regional Manager</div>
+    </div>
+  </div>
+
+  <!-- Current domain display -->
+  <div class="domain-section">
+    <div class="domain-label">SITE UNDER ASSESSMENT:</div>
+    <div class="domain-value" id="current-domain">Loading...</div>
+  </div>
+
+  <!-- Scan button -->
+  <button class="scan-btn" id="scan-btn">
+    ⚔️ RUN THREAT ASSESSMENT
+  </button>
+
+  <!-- Scan progress panel (hidden until scan starts) -->
+  <div class="scan-panel" id="scan-panel" style="display:none;">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="scan-log" id="scan-log"></div>
+    <div class="result-box" id="result-box" style="display:none;"></div>
+  </div>
+
+  <!-- Watch list toggle -->
+  <button class="watchlist-btn" id="watchlist-toggle">
+    📋 View Watch List
+  </button>
+
+  <!-- Watch list panel -->
+  <div class="watchlist-panel" id="watchlist-panel" style="display:none;">
+    <div class="watchlist-title">⚠️ DUNDER MIFFLIN WATCH LIST ⚠️</div>
+    <div class="watchlist-empty" id="watchlist-empty">No threats logged. Stay vigilant.</div>
+    <ul class="watchlist" id="watchlist"></ul>
+    <button class="clear-btn" id="clear-watchlist" style="display:none;">Clear Watch List</button>
+  </div>
+
+  <div class="footer">
+    Schrute Farms Security Division™ · Est. 1812
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

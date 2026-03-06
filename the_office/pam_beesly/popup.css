@@ -1,0 +1,202 @@
+/* Doodle Tab — Pam Beesly Extension (popup) */
+/* Aesthetic: Warm, artistic, watercolor-inspired. Like a sketchbook. */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 340px;
+  font-family: 'Georgia', 'Palatino', serif;
+  background: #fdf6f0;
+  color: #3a2a1a;
+  font-size: 13px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== HEADER ========== */
+
+.header {
+  background: linear-gradient(135deg, #b46482, #8a3a60);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brush-icon {
+  font-size: 1.8rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+  margin-top: 1px;
+}
+
+/* ========== TOGGLE SECTION ========== */
+
+.toggle-section {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid #e8d8c8;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.toggle-btn {
+  padding: 10px;
+  background: linear-gradient(135deg, #b46482, #8a3a60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Georgia', serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: bold;
+}
+
+.toggle-btn:hover {
+  background: linear-gradient(135deg, #c47892, #9a4a70);
+  box-shadow: 0 3px 10px rgba(138, 58, 96, 0.35);
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #4a8a6a, #2a6a4a);
+}
+
+.toggle-hint {
+  font-size: 0.72rem;
+  color: #9a8070;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ========== SECTION LABEL ========== */
+
+.section-label {
+  padding: 10px 16px 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #8a3a60;
+  letter-spacing: 0.5px;
+  border-bottom: 1px dashed #e8d8c8;
+}
+
+/* ========== ART SHOW / GALLERY ========== */
+
+.art-show {
+  padding: 10px 12px;
+  min-height: 80px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.art-empty {
+  text-align: center;
+  color: #b09080;
+  font-size: 0.82rem;
+  padding: 20px 10px;
+  line-height: 1.6;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #e8d8c8;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+  aspect-ratio: 1;
+  background: white;
+}
+
+.gallery-item:hover {
+  border-color: #b46482;
+  transform: scale(1.04);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item .gallery-domain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 0.55rem;
+  padding: 2px 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-item .gallery-delete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.gallery-item:hover .gallery-delete {
+  opacity: 1;
+}
+
+/* ========== FOOTER ========== */
+
+.popup-footer {
+  background: #f0e0d0;
+  color: #b09080;
+  text-align: center;
+  padding: 7px;
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+  font-style: italic;
+  border-top: 1px solid #e8d8c8;
+}

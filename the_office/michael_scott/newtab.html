@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World's Best Boss</title>
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body>
+  <!-- Background paper texture effect via CSS -->
+  <div class="paper-bg"></div>
+
+  <!-- Main container -->
+  <div class="container">
+
+    <!-- Trophy / Mug section (pure CSS drawing) -->
+    <div class="trophy-wrap">
+      <div class="mug">
+        <div class="mug-body">
+          <div class="mug-text">World's<br>Best<br>Boss</div>
+        </div>
+        <div class="mug-handle"></div>
+        <div class="mug-base"></div>
+        <div class="steam steam1"></div>
+        <div class="steam steam2"></div>
+        <div class="steam steam3"></div>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h1 class="title">World's Best Boss</h1>
+    <p class="subtitle">Dunder Mifflin — Scranton Branch</p>
+
+    <!-- Clock & Date -->
+    <div class="clock-section">
+      <div class="clock-label">Time at the World's Best Branch:</div>
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="date" id="date">---</div>
+    </div>
+
+    <!-- Quote card -->
+    <div class="quote-card" id="quote-card">
+      <div class="quote-text" id="quote-text"></div>
+      <div class="quote-attribution">— Michael Scott, World's Best Boss</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-row">
+      <button class="btn btn-twss" id="twss-btn" title="That's What She Said">
+        That's what she said! 😏
+      </button>
+      <button class="btn btn-new-quote" id="new-quote-btn">
+        New Quote
+      </button>
+    </div>
+
+    <!-- TWSS overlay animation -->
+    <div class="twss-overlay" id="twss-overlay">
+      <div class="twss-text">THAT'S WHAT SHE SAID!</div>
+    </div>
+
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

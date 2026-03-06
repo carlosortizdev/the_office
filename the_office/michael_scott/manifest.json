@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "World's Best Boss Tab",
+  "version": "1.0.0",
+  "description": "Replace your new tab with a motivational World's Best Boss dashboard. Because you're not just a boss — you're the BEST boss.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {}
+}
