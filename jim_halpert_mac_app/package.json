@@ -1,0 +1,25 @@
+{
+  "name": "jim-prank-tracker",
+  "version": "1.0.0",
+  "description": "Jim Halpert's Prank Tracker — Mac App Edition",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.theoffice.jimpranktracker",
+    "productName": "Prank Planner",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

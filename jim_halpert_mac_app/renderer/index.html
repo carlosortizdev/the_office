@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prank Planner</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Traffic-light spacer so content clears the inset title bar buttons -->
+    <div class="titlebar-spacer"></div>
+
+    <!-- Header — deliberately looks boring/professional at first glance -->
+    <div class="header">
+      <div class="header-left">
+        <div class="app-name">📋 Project Tracker</div>
+        <div class="app-sub">Halpert Productivity Suite</div>
+      </div>
+      <button class="camera-btn" id="camera-btn" title="...">😏</button>
+    </div>
+
+    <!-- Add new prank form -->
+    <div class="add-form" id="add-form">
+      <div class="form-row-inputs">
+        <input
+          type="text"
+          id="target-input"
+          class="input-field"
+          placeholder="Target (e.g., Dwight)"
+          maxlength="40"
+        />
+        <input
+          type="text"
+          id="desc-input"
+          class="input-field desc-field"
+          placeholder="Prank description..."
+          maxlength="200"
+        />
+      </div>
+      <div class="form-row">
+        <label class="diff-label">Difficulty:</label>
+        <div class="jello-rating" id="jello-rating">
+          <!-- 5 Jell-O molds, rendered via JS -->
+        </div>
+        <span class="diff-val" id="diff-val">3</span>
+        <div class="spacer"></div>
+        <label class="diff-label">Status:</label>
+        <select id="status-select" class="status-select">
+          <option value="Planned">Planned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Complete">Complete</option>
+          <option value="Dwight Suspected">Dwight Suspected</option>
+        </select>
+        <button class="add-btn" id="add-btn">+ Log Prank</button>
+      </div>
+    </div>
+
+    <!-- Prank list -->
+    <div class="prank-list" id="prank-list">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <div class="empty-icon">🖊️</div>
+      <div>No pranks logged yet.<br><em>Seems like a waste of a perfectly good desk.</em></div>
+    </div>
+  </div>
+
+  <!-- Camera glance overlay -->
+  <div class="camera-overlay" id="camera-overlay">
+    <div class="camera-face">😏</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
