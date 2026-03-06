@@ -1,0 +1,16 @@
+/* Doodle Tab — Content Script CSS */
+/* Minimal — most styles are applied inline in content.js to avoid conflicts with host page */
+
+/* Ensure the wrapper sits above everything */
+#__doodle_tab_wrapper__ {
+  all: initial;
+  position: fixed !important;
+  z-index: 2147483647 !important;
+}
+
+/* Prevent host page styles from affecting our canvas */
+#__doodle_tab_canvas__ {
+  all: initial;
+  display: block !important;
+  cursor: crosshair !important;
+}

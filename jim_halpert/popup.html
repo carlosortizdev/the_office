@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prank Planner</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header — deliberately looks boring/professional at first glance -->
+    <div class="header">
+      <div class="header-left">
+        <div class="app-name">📋 Project Tracker</div>
+        <div class="app-sub">Halpert Productivity Suite</div>
+      </div>
+      <!-- The camera glance button is subtle -->
+      <button class="camera-btn" id="camera-btn" title="...">😏</button>
+    </div>
+
+    <!-- Add new prank form -->
+    <div class="add-form" id="add-form">
+      <input
+        type="text"
+        id="target-input"
+        class="input-field"
+        placeholder="Target (e.g., Dwight)"
+        maxlength="40"
+      />
+      <input
+        type="text"
+        id="desc-input"
+        class="input-field"
+        placeholder="Prank description..."
+        maxlength="120"
+      />
+      <div class="form-row">
+        <label class="diff-label">Difficulty:</label>
+        <div class="jello-rating" id="jello-rating">
+          <!-- 5 Jell-O molds, rendered via JS -->
+        </div>
+        <span class="diff-val" id="diff-val">3</span>
+      </div>
+      <div class="form-row">
+        <label class="diff-label">Status:</label>
+        <select id="status-select" class="status-select">
+          <option value="Planned">Planned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Complete">Complete</option>
+          <option value="Dwight Suspected">Dwight Suspected</option>
+        </select>
+      </div>
+      <button class="add-btn" id="add-btn">+ Log Prank</button>
+    </div>
+
+    <!-- Prank list -->
+    <div class="prank-list" id="prank-list">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <div class="empty-icon">🖊️</div>
+      <div>No pranks logged yet.<br><em>Seems like a waste of a perfectly good desk.</em></div>
+    </div>
+  </div>
+
+  <!-- Camera glance overlay -->
+  <div class="camera-overlay" id="camera-overlay">
+    <div class="camera-face">😏</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
