@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Prank Planner",
+  "version": "1.0.0",
+  "description": "Jim Halpert's personal prank idea notebook. Looks like a productivity tool. It is not.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Prank Planner"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

@@ -1,0 +1,288 @@
+/* Threat Assessor — Dwight Schrute Extension */
+/* Aesthetic: Official government/military document, earth tones */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 360px;
+  font-family: 'Courier New', 'Courier', monospace;
+  background: #f0e8d0;
+  color: #2a1a08;
+  font-size: 12px;
+  border: 2px solid #5a3e1b;
+}
+
+/* ========== HEADER ========== */
+
+.header {
+  background: linear-gradient(135deg, #5a3e1b, #3a2408);
+  color: #f0e8d0;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 3px solid #8b6914;
+}
+
+.beet-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #ffd700;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+  font-size: 0.65rem;
+  color: #d4b87a;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+/* ========== DOMAIN SECTION ========== */
+
+.domain-section {
+  background: #e8dbb0;
+  border-bottom: 1px solid #c8a860;
+  padding: 8px 14px;
+}
+
+.domain-label {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: #7a5a20;
+  margin-bottom: 3px;
+}
+
+.domain-value {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #2a1a08;
+  word-break: break-all;
+}
+
+/* ========== SCAN BUTTON ========== */
+
+.scan-btn {
+  display: block;
+  width: calc(100% - 28px);
+  margin: 12px 14px;
+  padding: 10px;
+  background: linear-gradient(135deg, #5a3e1b, #3a2408);
+  color: #ffd700;
+  border: 2px solid #8b6914;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.scan-btn:hover {
+  background: linear-gradient(135deg, #7a5e3b, #5a3e1b);
+  box-shadow: 0 0 10px rgba(139, 105, 20, 0.5);
+}
+
+.scan-btn:active {
+  transform: scale(0.98);
+}
+
+.scan-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========== SCAN PANEL ========== */
+
+.scan-panel {
+  margin: 0 14px 12px;
+  border: 1px solid #c8a860;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-wrap {
+  height: 8px;
+  background: #d4c898;
+  border-bottom: 1px solid #c8a860;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #8b6914, #ffd700);
+  transition: width 0.3s ease;
+}
+
+.scan-log {
+  background: #1a1208;
+  color: #90d040;
+  padding: 10px;
+  font-size: 0.72rem;
+  min-height: 100px;
+  max-height: 160px;
+  overflow-y: auto;
+  line-height: 1.8;
+  font-family: 'Courier New', monospace;
+}
+
+.scan-log .log-line {
+  display: block;
+  animation: log-appear 0.2s ease;
+}
+
+@keyframes log-appear {
+  from { opacity: 0; transform: translateX(-5px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.log-ok   { color: #90d040; }
+.log-warn { color: #ffd700; }
+.log-err  { color: #ff4040; }
+
+/* ========== RESULT BOX ========== */
+
+.result-box {
+  padding: 10px 12px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 1px;
+  border-top: 1px solid #c8a860;
+}
+
+.result-safe {
+  background: #1a3a10;
+  color: #90d040;
+  border-color: #90d040;
+}
+
+.result-threat {
+  background: #3a0808;
+  color: #ff4040;
+  border-color: #ff4040;
+  animation: threat-pulse 0.5s ease infinite alternate;
+}
+
+@keyframes threat-pulse {
+  from { background: #3a0808; }
+  to   { background: #500a0a; }
+}
+
+/* ========== WATCH LIST BUTTON ========== */
+
+.watchlist-btn {
+  display: block;
+  width: calc(100% - 28px);
+  margin: 0 14px 10px;
+  padding: 7px 10px;
+  background: transparent;
+  color: #5a3e1b;
+  border: 1px dashed #8b6914;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.watchlist-btn:hover {
+  background: rgba(139, 105, 20, 0.1);
+}
+
+/* ========== WATCH LIST PANEL ========== */
+
+.watchlist-panel {
+  margin: 0 14px 10px;
+  border: 1px solid #c8a860;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.watchlist-title {
+  background: #3a0808;
+  color: #ff8080;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.watchlist-empty {
+  padding: 10px;
+  color: #7a6a3a;
+  font-style: italic;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.watchlist {
+  list-style: none;
+  padding: 0;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.watchlist li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #e0d090;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.watchlist li:last-child {
+  border-bottom: none;
+}
+
+.watchlist li .site {
+  font-weight: bold;
+  color: #ff4040;
+}
+
+.watchlist li .added {
+  font-size: 0.65rem;
+  color: #9a8a5a;
+}
+
+.clear-btn {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  background: #3a0808;
+  color: #ff8080;
+  border: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.clear-btn:hover {
+  background: #500a0a;
+}
+
+/* ========== FOOTER ========== */
+
+.footer {
+  background: #3a2408;
+  color: #8b6914;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+}

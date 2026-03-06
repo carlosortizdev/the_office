@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Doodle Tab",
+  "version": "1.0.0",
+  "description": "Pam Beesly's drawing canvas overlay for any webpage. Because art doesn't wait for the workday to end.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Doodle Tab"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doodle Tab</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <span class="brush-icon">🖌️</span>
+        <div>
+          <div class="title">Doodle Tab</div>
+          <div class="subtitle">by Pam Beesly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle drawing canvas button -->
+    <div class="toggle-section">
+      <button class="toggle-btn" id="toggle-btn">
+        <span id="toggle-label">✏️ Show Drawing Canvas</span>
+      </button>
+      <div class="toggle-hint" id="toggle-hint">
+        Canvas is <span id="canvas-state">hidden</span> on this page
+      </div>
+    </div>
+
+    <!-- Art Show section -->
+    <div class="section-label">🖼️ Art Show — Saved Doodles</div>
+    <div class="art-show" id="art-show">
+      <div class="art-empty" id="art-empty">
+        No doodles saved yet.<br>
+        <em>Start drawing on any webpage!</em>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+      Doodle Tab • Dunder Mifflin Scranton Art Dept.
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
